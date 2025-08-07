@@ -1,16 +1,22 @@
 // src/contextProvider/ContextProvider.jsx
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
-export const MyContext = createContext();
+// Create context
+const RltContext = createContext();
 
-const ContextProvider = ({ children }) => {
-  const [value, setValue] = useState("Hello from context!");
+// Context Provider
+export const ContextProvider = ({ children }) => {
+  const [rtl, setRtl] = useState(false); // example value, modify as needed
 
   return (
-    <MyContext.Provider value={{ value, setValue }}>
+    <RltContext.Provider value={{ rtl, setRtl }}>
       {children}
-    </MyContext.Provider>
+    </RltContext.Provider>
   );
 };
 
-export default ContextProvider;
+// Custom hook
+export const useRlt = () => {
+  const { rtl } = useContext(RltContext);
+  return rtl;
+};
